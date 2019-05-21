@@ -14,8 +14,15 @@ class App extends Component {
       people: {
         data: [],
         isFetching: true
+      },
+      filters: {
+        genders: [],
+        cities: [],
+        allCities: []
       }
     };
+    this.handleGenderFilter = this.handleGenderFilter.bind(this);
+    this.handleCityFilter = this.handleCityFilter.bind(this);
   }
 
   componentDidMount() {
@@ -24,17 +31,56 @@ class App extends Component {
 
   getPeople() {
     fetchPeople().then(data => {
-      this.setState({
-        people: {
-          data: data.results,
-          isFetching: false
-        }
+      this.setState(prevState => {
+        return {
+          people: {
+            data: data.results,
+            isFetching: false
+          },
+          filters: {
+            ...prevState.filters,
+            allCities: data.results
+              .map(item => item.location.city)
+              .filter((item, ind, arr) => arr.indexOf(item) === ind)
+          }
+        };
       });
     });
   }
 
+  handleGenderFilter(e) {
+    const { value, checked } = e.target;
+
+    this.setState(prevState => {
+      return {
+        filters: {
+          ...prevState.filters,
+          genders: checked
+            ? prevState.filters.genders.concat(value)
+            : prevState.filters.genders.filter(item => item !== value)
+        }
+      };
+    });
+  }
+
+  handleCityFilter(e) {
+    const { value } = e.target;
+
+    this.setState(prevState => {
+      return {
+        filters: {
+          ...prevState.filters,
+          cities: prevState.filters.cities.find(item => item === value)
+            ? prevState.filters.cities.filter(item => item !== value)
+            : prevState.filters.cities.concat(value)
+        }
+      };
+    });
+  }
+
   render() {
-    const {isFetching, data} = this.state.people;
+    const { isFetching, data } = this.state.people;
+    const { genders, allCities, cities } = this.state.filters;
 
     return (
       <div className="App">
@@ -45,10 +91,14 @@ class App extends Component {
           <p>Loading...</p>
         ) : (
           <Fragment>
-            <Filters />
-            <List
-              people={data}
+            <Filters
+              onGenderChange={this.handleGenderFilter}
+              genders={genders}
+              allCities={allCities}
+              onCityChange={this.handleCityFilter}
+              cities={cities}
             />
+            <List people={data} />
           </Fragment>
         )}
       </div>

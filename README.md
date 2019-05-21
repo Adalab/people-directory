@@ -2,7 +2,7 @@ TODO:
 
 - [X] Set up project
 - [X] Plan components
-- [ ] Call api and paint list
+- [X] Call api and paint list
 - [ ] Paint filters and control them (state)
 - [ ] Filter list
 - [ ] Optional: add detail page
