@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from 'react';
+import React, { Component } from 'react';
 
 import fetchPeople from '../../services/people-service';
 
@@ -52,22 +52,20 @@ class App extends Component {
 
   isGenderSelected(user) {
     const { genders } = this.state.filters;
-    return !genders.length || genders.includes(user.gender)
+    return !genders.length || genders.includes(user.gender);
   }
 
   isCitySelected(user) {
     const { cities } = this.state.filters;
-    return !cities.length || cities.includes(user.location.city)
+    return !cities.length || cities.includes(user.location.city);
   }
 
   getFilteredPeople() {
     const { data } = this.state.people;
-   
-    return data
-      .filter(user => {
-        return this.isGenderSelected(user) 
-          && this.isCitySelected(user);
-      })
+
+    return data.filter(user => {
+      return this.isGenderSelected(user) && this.isCitySelected(user);
+    });
   }
 
   getFilteredPeopleSimpleVersion() {
@@ -76,19 +74,19 @@ class App extends Component {
 
     return data
       .filter(user => {
-        if(!genders.length) {
-          return true
+        if (!genders.length) {
+          return true;
         } else {
           return genders.includes(user.gender);
         }
       })
       .filter(user => {
-        if(!cities.length) {
-          return true
+        if (!cities.length) {
+          return true;
         } else {
           return cities.includes(user.location.city);
         }
-      })
+      });
   }
 
   handleGenderFilter(e) {
@@ -128,21 +126,23 @@ class App extends Component {
     return (
       <div className="App">
         <header>
-          <h1>People Directory</h1>
+          <h1 className="App__title">People Directory</h1>
         </header>
         {isFetching ? (
           <p>Loading...</p>
         ) : (
-          <Fragment>
-            <Filters
-              onGenderChange={this.handleGenderFilter}
-              genders={genders}
-              allCities={allCities}
-              onCityChange={this.handleCityFilter}
-              cities={cities}
-            />
+          <main className="App__main">
+            <aside className="App__left-column">
+              <Filters
+                onGenderChange={this.handleGenderFilter}
+                genders={genders}
+                allCities={allCities}
+                onCityChange={this.handleCityFilter}
+                cities={cities}
+              />
+            </aside>
             <List people={this.getFilteredPeople()} />
-          </Fragment>
+          </main>
         )}
       </div>
     );

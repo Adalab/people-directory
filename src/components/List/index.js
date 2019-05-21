@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 
 import Card from '../Card';
 
+import './styles.scss';
+
 const List = props => {
-  return <ul>
+  return <ul className="List">
     {props.people.map(item => {
       return <li key={item.login.uuid}>
         <Card

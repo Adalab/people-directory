@@ -4,8 +4,8 @@ TODO:
 - [X] Plan components
 - [X] Call api and paint list
 - [X] Paint filters and control them (state)
-- [ ] Filter list
-- [ ] Optional: add detail page
+- [X] Filter list
+- [X] Add minimum styles
 - [ ] Review and clean
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

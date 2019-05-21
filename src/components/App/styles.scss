@@ -1,0 +1,21 @@
+.App {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.App__title {
+  text-align: center;
+}
+
+.App__main {
+  @media all and (min-width: 768px) {
+    display: flex;
+  }
+}
+
+.App__left-column {
+  @media all and (min-width: 768px) {
+    flex-basis: 300px;
+  }
+}
