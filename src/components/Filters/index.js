@@ -55,8 +55,7 @@ Filters.propTypes = {
   genders: PropTypes.arrayOf(PropTypes.string).isRequired,
   allCities: PropTypes.arrayOf(PropTypes.string).isRequired,
   onCityChange: PropTypes.func.isRequired,
-  cities: PropTypes.arrayOf(PropTypes.string).isRequired,
-
+  cities: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
 export default Filters;

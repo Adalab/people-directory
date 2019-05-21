@@ -1,12 +1,4 @@
-TODO:
-
-- [X] Set up project
-- [X] Plan components
-- [X] Call api and paint list
-- [X] Paint filters and control them (state)
-- [X] Filter list
-- [X] Add minimum styles
-- [ ] Review and clean
+A simple list of people with some filters.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
