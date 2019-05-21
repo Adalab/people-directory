@@ -23,6 +23,8 @@ class App extends Component {
     };
     this.handleGenderFilter = this.handleGenderFilter.bind(this);
     this.handleCityFilter = this.handleCityFilter.bind(this);
+    this.isGenderSelected = this.isGenderSelected.bind(this);
+    this.isCitySelected = this.isCitySelected.bind(this);
   }
 
   componentDidMount() {
@@ -46,6 +48,47 @@ class App extends Component {
         };
       });
     });
+  }
+
+  isGenderSelected(user) {
+    const { genders } = this.state.filters;
+    return !genders.length || genders.includes(user.gender)
+  }
+
+  isCitySelected(user) {
+    const { cities } = this.state.filters;
+    return !cities.length || cities.includes(user.location.city)
+  }
+
+  getFilteredPeople() {
+    const { data } = this.state.people;
+   
+    return data
+      .filter(user => {
+        return this.isGenderSelected(user) 
+          && this.isCitySelected(user);
+      })
+  }
+
+  getFilteredPeopleSimpleVersion() {
+    const { data } = this.state.people;
+    const { genders, cities } = this.state.filters;
+
+    return data
+      .filter(user => {
+        if(!genders.length) {
+          return true
+        } else {
+          return genders.includes(user.gender);
+        }
+      })
+      .filter(user => {
+        if(!cities.length) {
+          return true
+        } else {
+          return cities.includes(user.location.city);
+        }
+      })
   }
 
   handleGenderFilter(e) {
@@ -79,7 +122,7 @@ class App extends Component {
   }
 
   render() {
-    const { isFetching, data } = this.state.people;
+    const { isFetching } = this.state.people;
     const { genders, allCities, cities } = this.state.filters;
 
     return (
@@ -98,7 +141,7 @@ class App extends Component {
               onCityChange={this.handleCityFilter}
               cities={cities}
             />
-            <List people={data} />
+            <List people={this.getFilteredPeople()} />
           </Fragment>
         )}
       </div>
