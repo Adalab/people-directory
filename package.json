@@ -2,6 +2,7 @@
   "name": "people-directory",
   "version": "0.1.0",
   "private": true,
+  "homepage": "./",
   "dependencies": {
     "node-sass": "^4.12.0",
     "react": "^16.8.6",
